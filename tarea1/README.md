@@ -14,7 +14,7 @@ Para cada cliente se entrega el cambio usando la combinación de billetes que me
 
 **Evidencia de Accepted:**
 
-![Accepted - Lemonade Change](evidencias/lemonade-change-accepted.jpg)
+![Accepted - Lemonade Change](evidencias/lemonade-change-accepted.jpeg)
 
 
 ## 455. Assign Cookies
@@ -31,4 +31,4 @@ Se ordenan los niños y las galletas de menor a mayor. Para cada niño se intent
 
 **Evidencia de Accepted:**
 
-![Accepted - Assign Cookies](evidencias/assign-cookies-accepted.jpg)
+![Accepted - Assign Cookies](evidencias/assign-cookies-accepted.jpeg)
