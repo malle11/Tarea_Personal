@@ -8,8 +8,8 @@ de subconjuntos. En cada uno se nombra el estado, la recurrencia y los casos bas
 
 | Ejercicio | Problema | Carpeta del código | Evidencia |
 | --- | --- | --- | --- |
-| 1 | [322. Coin Change](https://leetcode.com/problems/coin-change/) | [`coin-change/coin_change.py`](coin-change/coin_change.py) | [Accepted](evidencias/coin-change-accepted.png) |
-| 2 | [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/) | [`partition-equal-subset-sum/partition_equal_subset_sum.py`](partition-equal-subset-sum/partition_equal_subset_sum.py) | [Accepted](evidencias/partition-equal-subset-sum-accepted.png) |
+| 1 | [322. Coin Change](https://leetcode.com/problems/coin-change/) | [`coin-change/coin_change.py`](coin-change/coin_change.py) | [Accepted](evidencias/coin-change-accepted.jpeg) |
+| 2 | [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/) | [`partition-equal-subset-sum/partition_equal_subset_sum.py`](partition-equal-subset-sum/partition_equal_subset_sum.py) | [Accepted](evidencias/partition-equal-subset-sum-accepted.jpeg) |
 
 ---
 
@@ -69,7 +69,7 @@ bits que lo representan, que es el mismo aviso que da la guía.
 
 ### Evidencia de Accepted
 
-![Accepted - 322. Coin Change](evidencias/coin-change-accepted.png)
+![Accepted - 322. Coin Change](evidencias/coin-change-accepted.jpeg)
 
 ---
 
@@ -142,4 +142,4 @@ Con `n = nums.length` y `W = S / 2`:
 
 ### Evidencia de Accepted
 
-![Accepted - 416. Partition Equal Subset Sum](evidencias/partition-equal-subset-sum-accepted.png)
+![Accepted - 416. Partition Equal Subset Sum](evidencias/partition-equal-subset-sum-accepted.jpeg)
