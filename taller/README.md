@@ -26,7 +26,7 @@ taller/
 
 | # | Problema | Familia | Carpeta del código | Evidencia |
 | --- | --- | --- | --- | --- |
-| 1 | [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Ordenamiento | [`Ordenamiento/merge_intervals.py`](Ordenamiento/merge_intervals.py) | [Accepted](evidencias/merge-intervals-accepted.png) |
+| 1 | [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Ordenamiento | [`Ordenamiento/merge_intervals.py`](Ordenamiento/merge_intervals.py) | [Accepted](evidencias/merge-intervals-accepted.jpeg) |
 | 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | `Grafos/number_of_islands.py` | _pendiente_ |
 | 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | `ProgramacionDinamica/longest_common_subsequence.py` | _pendiente_ |
 | 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | `Greedy/non_overlapping_intervals.py` | _pendiente_ |
@@ -85,7 +85,7 @@ Con `n = intervals.length` y `k = número de intervalos fusionados` (`k ≤ n`):
 
 ### Evidencia de Accepted
 
-![Accepted - 56. Merge Intervals](evidencias/merge-intervals-accepted.png)
+![Accepted - 56. Merge Intervals](evidencias/merge-intervals-accepted.jpeg)
 
 <!-- Evidencia opcional del detalle de runtime/memoria -->
-<!-- ![Runtime y memoria - 56. Merge Intervals](evidencias/merge-intervals-runtime.png) -->
+<!-- ![Runtime y memoria - 56. Merge Intervals](evidencias/merge-intervals-runtime.jpeg) -->
