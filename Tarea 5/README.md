@@ -9,32 +9,32 @@ ordenamiento, grafos, programación dinámica, greedy y backtracking. En cada ca
 está implementado a mano (no se llama a `sort()` de la librería donde el ejercicio **es** el
 ordenamiento, ni se hace backtracking sin retractarse, ni se pega código que no se pueda explicar).
 
-Cada ejercicio vive en una carpeta nombrada por su **familia**, y el archivo se llama como el
-problema, para que quede claro cuál es cuál.
+Cada ejercicio vive en **una carpeta propia, nombrada como el problema**, y dentro el archivo se
+llama igual, para que quede claro cuál es cuál.
 
 ```
 Tarea 5/
 ├── README.md
-├── Ordenamiento/              ← ejercicio 1 · ordenamiento
+├── merge-intervals/                  ← ejercicio 1 · ordenamiento
 │   └── merge_intervals.py
-├── Grafos/                    ← ejercicio 2 · grafos
+├── number-of-islands/                ← ejercicio 2 · grafos
 │   └── number_of_islands.py
-├── programación dinámica/      ← ejercicio 3 · programación dinámica
+├── longest-common-subsequence/       ← ejercicio 3 · programación dinámica
 │   └── longest_common_subsequence.py
-├── greedy/                     ← ejercicio 4 · greedy
+├── non-overlapping-intervals/        ← ejercicio 4 · greedy
 │   └── non_overlapping_intervals.py
-├── backtracking/                ← ejercicio 5 · backtracking
+├── combination-sum/                  ← ejercicio 5 · backtracking
 │   └── combination_sum.py
-└── evidencias/                 ← capturas Accepted (una por problema)
+└── evidencias/                       ← capturas Accepted (una por problema)
 ```
 
 | # | Problema | Familia | Carpeta del código | Evidencia |
 | --- | --- | --- | --- | --- |
-| 1 | [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Ordenamiento | [`Ordenamiento/merge_intervals.py`](Ordenamiento/merge_intervals.py) | [Accepted](evidencias/merge-intervals-accepted.jpeg) |
-| 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | [`Grafos/number_of_islands.py`](Grafos/number_of_islands.py) | [Accepted](evidencias/number-of-islands-accepted.jpeg) |
-| 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | [`programación dinámica/longest_common_subsequence.py`](programación%20dinámica/longest_common_subsequence.py) | [Accepted](evidencias/longest-common-subsequence-accepted.jpeg) |
-| 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | [`greedy/non_overlapping_intervals.py`](greedy/non_overlapping_intervals.py) | [Accepted](evidencias/non-overlapping-intervals-accepted.jpeg) |
-| 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | [`backtracking/combination_sum.py`](backtracking/combination_sum.py) | [Accepted](evidencias/combination-sum-accepted.jpeg) |
+| 1 | [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Ordenamiento | [`merge-intervals/merge_intervals.py`](merge-intervals/merge_intervals.py) | [Accepted](evidencias/merge-intervals-accepted.jpeg) |
+| 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | [`number-of-islands/number_of_islands.py`](number-of-islands/number_of_islands.py) | [Accepted](evidencias/number-of-islands-accepted.jpeg) |
+| 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | [`longest-common-subsequence/longest_common_subsequence.py`](longest-common-subsequence/longest_common_subsequence.py) | [Accepted](evidencias/longest-common-subsequence-accepted.jpeg) |
+| 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | [`non-overlapping-intervals/non_overlapping_intervals.py`](non-overlapping-intervals/non_overlapping_intervals.py) | [Accepted](evidencias/non-overlapping-intervals-accepted.jpeg) |
+| 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | [`combination-sum/combination_sum.py`](combination-sum/combination_sum.py) | [Accepted](evidencias/combination-sum-accepted.jpeg) |
 
 ---
 
@@ -42,7 +42,7 @@ Tarea 5/
 
 **Problema:** [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) · Medium
 **Familia:** ordenamiento (merge sort) + una pasada lineal de fusión
-**Código:** [`Ordenamiento/merge_intervals.py`](Ordenamiento/merge_intervals.py)
+**Código:** [`merge-intervals/merge_intervals.py`](merge-intervals/merge_intervals.py)
 
 ### Idea en dos frases
 
@@ -98,7 +98,7 @@ Con `n = intervals.length` y `k = número de intervalos fusionados` (`k ≤ n`):
 
 **Problema:** [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) · Medium
 **Familia:** grafos (DFS iterativo para contar componentes conexas)
-**Código:** [`Grafos/number_of_islands.py`](Grafos/number_of_islands.py)
+**Código:** [`number-of-islands/number_of_islands.py`](number-of-islands/number_of_islands.py)
 
 ### Modelo: el grafo que está escondido en la grilla
 
@@ -170,7 +170,7 @@ mantiene en el orden de la pila y no en Θ(mn) adicionales.
 
 **Problema:** [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) · Medium
 **Familia:** programación dinámica (tabla de prefijos, estilo Needleman–Wagner / Wagner–Fischer)
-**Código:** [`programación dinámica/longest_common_subsequence.py`](programación%20dinámica/longest_common_subsequence.py)
+**Código:** [`longest-common-subsequence/longest_common_subsequence.py`](longest-common-subsequence/longest_common_subsequence.py)
 
 Es el **LCS de Needleman–Wagner / Wagner–Fischer**: una tabla donde cada casilla guarda el resultado
 de un subproblema —un par de prefijos— y cada casilla se calcula a partir de las que están arriba, a
@@ -264,7 +264,7 @@ taller de menor largo. Se dejó la tabla completa a propósito: el estado del en
 
 **Problema:** [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) · Medium
 **Familia:** greedy (selección de actividades)
-**Código:** [`greedy/non_overlapping_intervals.py`](greedy/non_overlapping_intervals.py)
+**Código:** [`non-overlapping-intervals/non_overlapping_intervals.py`](non-overlapping-intervals/non_overlapping_intervals.py)
 
 ### Idea en dos frases
 
@@ -341,7 +341,7 @@ escrito a mano.
 
 **Problema:** [39. Combination Sum](https://leetcode.com/problems/combination-sum/) · Medium
 **Familia:** backtracking (enumeración de combinaciones con retractarse)
-**Código:** [`backtracking/combination_sum.py`](backtracking/combination_sum.py)
+**Código:** [`combination-sum/combination_sum.py`](combination-sum/combination_sum.py)
 
 En Coin Change (tarea 4) la programming dinámica respondía **cuántas** monedas mínimas; acá hay que
 **enumerar** todas las combinaciones que suman `target`. Un greedy no sirve porque **no se
