@@ -27,7 +27,7 @@ Tarea 5/
 | # | Problema | Familia | Carpeta del código | Evidencia |
 | --- | --- | --- | --- | --- |
 | 1 | [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Ordenamiento | [`Ordenamiento/merge_intervals.py`](Ordenamiento/merge_intervals.py) | [Accepted](evidencias/merge-intervals-accepted.jpeg) |
-| 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | `Grafos/number_of_islands.py` | _pendiente_ |
+| 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | [`Grafos/number_of_islands.py`](Grafos/number_of_islands.py) | _pendiente_ |
 | 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | `ProgramacionDinamica/longest_common_subsequence.py` | _pendiente_ |
 | 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | `Greedy/non_overlapping_intervals.py` | _pendiente_ |
 | 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | `Backtracking/combination_sum.py` | _pendiente_ |
@@ -89,3 +89,77 @@ Con `n = intervals.length` y `k = número de intervalos fusionados` (`k ≤ n`):
 
 <!-- Evidencia opcional del detalle de runtime/memoria -->
 <!-- ![Runtime y memoria - 56. Merge Intervals](evidencias/merge-intervals-runtime.jpeg) -->
+
+---
+
+## 2. 200. Number of Islands
+
+**Problema:** [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) · Medium
+**Familia:** grafos (DFS iterativo para contar componentes conexas)
+**Código:** [`Grafos/number_of_islands.py`](Grafos/number_of_islands.py)
+
+### Modelo: el grafo que está escondido en la grilla
+
+- **Vértice:** cada celda de la grilla que vale `'1'` (la tierra). Las celdas `'0'` (agua) **no son
+  vértices**: no entran al grafo.
+- **Arista:** dos celdas `'1'` que son vecinas **ortogonales**. Solo hay cuatro posibles:
+  arriba `(f-1, c)`, abajo `(f+1, c)`, izquierda `(f, c-1)`, derecha `(f, c+1)`. **La diagonal no
+  genera arista**, así que en una grilla `[["1","0"],["0","1"]]` hay dos islas, no una.
+- **No dirigido:** la arista es simétrica: si `u` es vecina de `v`, entonces `v` es vecina de
+  `u`. No hay pesos ni sentidos.
+- **Componente conexa:** una isla es exactamente una componente conexa de ese grafo. Por eso
+  "contar islas" **es** "contar componentes conexas", que es el problema clásico de grafos (la
+  tarea 3 lo pedía con matriz de adyacencia; acá el grafo es implícito y la arista se calcula
+  con la regla de los cuatro vecinos).
+
+### Idea en dos frases
+
+Se recorre la grilla celda por celda; cada vez que aparece un `'1'` que todavía no fue marcado,
+se **suma 1 al contador** (esa celda es la semilla de una isla nueva) y se lanza un **DFS** que
+**hunde** toda su componente, cambiando cada `'1'` alcanzado a `'0'`. Cuando el DFS termina, toda
+esa isla quedó marcada, así que ninguna otra celda de la misma isla volverá a contarse.
+
+El marcado se hace **al apilar** (`grid[nf][nc] = '0'` antes del `append`), no al desapilar: si se
+marcara al desapilar, la misma celda podría entrar dos veces en la pila y se contaría dos veces.
+
+### Por qué el contador coincide con el número de islas
+
+- Al encontrar una semilla `'1'` no marcada, el DFS visita **exactamente** su componente conexa
+  (el conjunto de celdas alcanzables por aristas, que es la definición de isla) y la marca toda.
+- Como la componente queda completamente marcada, **ninguna** celda de esa isla puede volver a
+  ser semilla. Cada isla aporta entonces **una y exactamente una** unidad al contador.
+- El doble `for` recorre todas las celdas, así que **toda** isla tiene alguna celda que será
+  semilla: no se deja ninguna sin contar.
+
+### DFS iterativo, no recursivo
+
+El DFS usa una **pila explícita** en vez de llamadas recursivas a propósito: el caso máximo de
+LeetCode es `300 × 300 = 90 000` celdas, y la recursión de Python tiene un límite de profundidad
+cercano a 1000, así que una versión recursiva lanzaría `RecursionError` en las pruebas grandes. La
+pila explícita recorre **la misma componente**, solo que el "estado pendiente" vive en una lista.
+
+Alternativas que también valen (no usadas aquí): **BFS** con una cola (`collections.deque`), o
+**Union-Find** uniendo cada `'1'` con su vecino de abajo y de la derecha y contando raíces al final.
+
+### Complejidad
+
+Con `m = número de filas` y `n = número de columnas`:
+
+- **Tiempo: Θ(m · n).** El doble `for` examina las `m · n` celdas una vez (Θ(mn)). Además, cada
+  celda de tierra entra en la pila **una sola vez** (porque se marca al apilarla), y cada entrada
+  a la pila hace solo 4 chequeos de vecino en tiempo O(1): la suma de todos los DFS juntos es
+  Θ(#celdas '1') ≤ Θ(mn). No hay reprocesamiento ni comparaciones entre islas.
+- **Espacio: O(m · n) en el peor caso** — la pila del DFS. En el caso extremo de una isla que
+  cubre toda la grilla, la pila llega a Θ(mn) entradas. Fuera de la pila solo O(1) (los dos
+  índices del `for` y las tuplas de los 4 pasos).
+
+El marcado **no usa una matriz extra de visitados**: se reutiliza la propia grilla, porque
+LeetCode permite modificarla (el enunciado no exige conservar el tablero). Así el espacio se
+mantiene en el orden de la pila y no en Θ(mn) adicionales.
+
+### Evidencia de Accepted
+
+![Accepted - 200. Number of Islands](evidencias/number-of-islands-accepted.jpeg)
+
+<!-- Evidencia opcional del detalle de runtime/memoria -->
+<!-- ![Runtime y memoria - 200. Number of Islands](evidencias/number-of-islands-runtime.jpeg) -->
