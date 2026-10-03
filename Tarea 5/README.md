@@ -1,4 +1,4 @@
-# Taller de algoritmos en LeetCode — 5 familias
+# Cinco familias en LeetCode
 
 **Curso:** Análisis de algoritmos · ITM · 2026-2
 **Lenguaje:** Python 3
@@ -13,7 +13,7 @@ Cada ejercicio vive en una carpeta nombrada por su **familia**, y el archivo se 
 problema, para que quede claro cuál es cuál.
 
 ```
-taller/
+Tarea 5/
 ├── README.md
 ├── Ordenamiento/              ← ejercicio 1 · ordenamiento
 │   └── merge_intervals.py
