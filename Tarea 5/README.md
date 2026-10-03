@@ -34,7 +34,7 @@ Tarea 5/
 | 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | [`Grafos/number_of_islands.py`](Grafos/number_of_islands.py) | [Accepted](evidencias/number-of-islands-accepted.jpeg) |
 | 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | [`programación dinámica/longest_common_subsequence.py`](programación%20dinámica/longest_common_subsequence.py) | [Accepted](evidencias/longest-common-subsequence-accepted.jpeg) |
 | 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | [`greedy/non_overlapping_intervals.py`](greedy/non_overlapping_intervals.py) | [Accepted](evidencias/non-overlapping-intervals-accepted.jpeg) |
-| 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | [`backtracking/combination_sum.py`](backtracking/combination_sum.py) | _pendiente_ |
+| 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | [`backtracking/combination_sum.py`](backtracking/combination_sum.py) | [Accepted](evidencias/combination-sum-accepted.jpeg) |
 
 ---
 
