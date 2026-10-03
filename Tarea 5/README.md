@@ -23,7 +23,8 @@ Tarea 5/
 │   └── longest_common_subsequence.py
 ├── greedy/                     ← ejercicio 4 · greedy
 │   └── non_overlapping_intervals.py
-├── Backtracking/               ← ejercicio 5 · backtracking
+├── backtracking/                ← ejercicio 5 · backtracking
+│   └── combination_sum.py
 └── evidencias/                 ← capturas Accepted (una por problema)
 ```
 
@@ -33,7 +34,7 @@ Tarea 5/
 | 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | [`Grafos/number_of_islands.py`](Grafos/number_of_islands.py) | [Accepted](evidencias/number-of-islands-accepted.jpeg) |
 | 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | [`programación dinámica/longest_common_subsequence.py`](programación%20dinámica/longest_common_subsequence.py) | [Accepted](evidencias/longest-common-subsequence-accepted.jpeg) |
 | 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | [`greedy/non_overlapping_intervals.py`](greedy/non_overlapping_intervals.py) | [Accepted](evidencias/non-overlapping-intervals-accepted.jpeg) |
-| 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | `Backtracking/combination_sum.py` | _pendiente_ |
+| 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | [`backtracking/combination_sum.py`](backtracking/combination_sum.py) | _pendiente_ |
 
 ---
 
@@ -341,3 +342,80 @@ escrito a mano.
 
 <!-- Evidencia opcional del detalle de runtime/memoria -->
 <!-- ![Runtime y memoria - 435. Non-overlapping Intervals](evidencias/non-overlapping-intervals-runtime.jpeg) -->
+
+---
+
+## 5. 39. Combination Sum
+
+**Problema:** [39. Combination Sum](https://leetcode.com/problems/combination-sum/) · Medium
+**Familia:** backtracking (enumeración de combinaciones con retractarse)
+**Código:** [`backtracking/combination_sum.py`](backtracking/combination_sum.py)
+
+En Coin Change (tarea 4) la programming dinámica respondía **cuántas** monedas mínimas; acá hay que
+**enumerar** todas las combinaciones que suman `target`. Un greedy no sirve porque **no se
+retracta**: no hay forma de "deshacer" una elección mala sin volver a explores desde el principio.
+El backtracking sí: elige, baja, y al volver **deshace**.
+
+### Estado de la búsqueda
+
+Los tres datos que viaja la recursión (`_buscar`):
+
+- `resto`: **cuánto falta** para llegar a `target` (se lleva el objetivo como resta, no como suma).
+- `inicio`: **desde qué índice se puede tomar** el próximo candidato. Es el que garantiza que no
+  se repitan permutaciones.
+- `actual`: la **combinación parcial** que se está armando (la lista que se va a copiar al final).
+
+### Qué se elige, qué se deshace y qué se poda
+
+1. **Qué se elige:** en el `for i in range(inicio, len(candidatos))` se toma `candidatos[i]`, se
+   **agrega** a `actual` y se baja con `resto - candidatos[i]` y **`inicio = i`** (no `i + 1`):
+   pasar la misma `i` es lo que permite **reutilizar** ese candidato tantas veces como haga falta,
+   que es la regla del problema ("un número puede usarse las veces que quiera").
+2. **Qué se deshace (el backtrack):** al volver del llamado recursivo se hace `actual.pop()`. Ese
+   `pop` es **todo** el backtracking: deshace la elección, devuelve `actual` al estado que tenía
+   antes de elegir, y el `for` sigue probando el siguiente candidato. Sin ese `pop` las
+   combinaciones se irían acumulando unas dentro de otras.
+3. **Evitar permutaciones:** como el `for` arranca en `inicio` y al bajar se pasa `i` (nunca un
+   índice menor), los índices solo crecen. Así `[2,2,3]` se genera una sola vez y `[2,3,2]` **no**
+   se genera nunca: es imposible volver a un índice ya pasado.
+4. **Podas (dos):**
+   - `if candidatos[i] > resto: break` — si el candidato actual ya se pasa del resto, **se corta
+     toda la rama**: como `candidatos` está ordenado, todos los siguientes son ≥ que él y tampoco
+     caben. El `break` (y no `continue`) depende de que la lista esté ordenada.
+   - `if resto == 0: return` — se llegó al objetivo: se copia `actual[:]` (una **copia**, porque si
+     se guardara la lista y se siguiera mutando, todas las respuestas saldrían idénticas) y se
+     corta la rama.
+
+### Complejidad
+
+Con `n = candidates.length`, `t = target` y `c = min(candidates)`:
+
+- **Profundidad:** cada nivel baja el `resto` por al menos `c`, así que la recursión baja a lo sumo
+  `d = ⌊t / c⌋` niveles.
+- **Tiempo: exponencial en la profundidad — O(n^(t/c)) en el peor caso.** El árbol de búsqueda no
+  es un árbol binario como el de la recursión de LCS: en cada nivel se prueban hasta `n`
+  candidatos, y las hojas son combinaciones distintas. El número de nodos del árbol está acotado
+  por el número de multiconjuntos de tamaño `≤ d` formados con `n` valores:
+  `Σ_{k=0..d} C(n+k-1, k) = C(n+d, d)`, que para `d ≥ n` es `O(n^d) = O(n^(t/c))`. Y como el
+  enunciado exige enumerar la lista, esa cola es **inevitable**: el caso de `candidates = [1]` con
+  `target` grande tiene una sola salida pero la rama es de profundidad `t`, y el caso peor de
+  salida (`candidates = 1..30`, `target = 30`) tiene **5604** combinaciones.
+- **Espacio:**
+  - **Pila de recursión: Θ(d) = Θ(t/c)** — un marco por nivel.
+  - **Combinación parcial `actual`: Θ(d)** — a lo sumo `d` elementos.
+  - **Salida: Θ(d · S)** donde `S` = número de soluciones devueltas (cada una con hasta `d`
+    elementos). Es inevitable: el enunciado pide la lista.
+  - **Espacio auxiliar (sin contar la salida): Θ(t/c)**. No hay tabla de DP ni memoización.
+
+**Contraste con la tarea 4:** el Coin Change es **Θ(n · t)** porque solo necesita un **número**
+(el mínimo de monedas). Acá se necesita **la lista completa** de combinaciones, y esa lista
+**no** cabe en una tabla de dos dimensiones: un DP que solo cuente (o que arme un óptimo) da un
+resultado distinto del que pide el enunciado. Por eso el Θ(n · t) de Coin Change **no** es el
+algoritmo de este ejercicio.
+
+### Evidencia de Accepted
+
+![Accepted - 39. Combination Sum](evidencias/combination-sum-accepted.jpeg)
+
+<!-- Evidencia opcional del detalle de runtime/memoria -->
+<!-- ![Runtime y memoria - 39. Combination Sum](evidencias/combination-sum-runtime.jpeg) -->
