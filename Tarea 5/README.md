@@ -30,7 +30,7 @@ Tarea 5/
 | --- | --- | --- | --- | --- |
 | 1 | [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Ordenamiento | [`Ordenamiento/merge_intervals.py`](Ordenamiento/merge_intervals.py) | [Accepted](evidencias/merge-intervals-accepted.jpeg) |
 | 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | [`Grafos/number_of_islands.py`](Grafos/number_of_islands.py) | [Accepted](evidencias/number-of-islands-accepted.jpeg) |
-| 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | [`programación dinámica/longest_common_subsequence.py`](programación%20dinámica/longest_common_subsequence.py) | _pendiente_ |
+| 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | [`programación dinámica/longest_common_subsequence.py`](programación%20dinámica/longest_common_subsequence.py) | [Accepted](evidencias/longest-common-subsequence-accepted.jpeg) |
 | 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | `Greedy/non_overlapping_intervals.py` | _pendiente_ |
 | 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | `Backtracking/combination_sum.py` | _pendiente_ |
 
