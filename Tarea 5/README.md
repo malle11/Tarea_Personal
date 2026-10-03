@@ -21,9 +21,10 @@ Tarea 5/
 │   └── number_of_islands.py
 ├── programación dinámica/      ← ejercicio 3 · programación dinámica
 │   └── longest_common_subsequence.py
-├── Greedy/                    ← ejercicio 4 · greedy
-├── Backtracking/              ← ejercicio 5 · backtracking
-└── evidencias/                ← capturas Accepted (una por problema)
+├── greedy/                     ← ejercicio 4 · greedy
+│   └── non_overlapping_intervals.py
+├── Backtracking/               ← ejercicio 5 · backtracking
+└── evidencias/                 ← capturas Accepted (una por problema)
 ```
 
 | # | Problema | Familia | Carpeta del código | Evidencia |
@@ -31,7 +32,7 @@ Tarea 5/
 | 1 | [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/) | Ordenamiento | [`Ordenamiento/merge_intervals.py`](Ordenamiento/merge_intervals.py) | [Accepted](evidencias/merge-intervals-accepted.jpeg) |
 | 2 | [200. Number of Islands](https://leetcode.com/problems/number-of-islands/) | Grafos | [`Grafos/number_of_islands.py`](Grafos/number_of_islands.py) | [Accepted](evidencias/number-of-islands-accepted.jpeg) |
 | 3 | [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | Programación dinámica | [`programación dinámica/longest_common_subsequence.py`](programación%20dinámica/longest_common_subsequence.py) | [Accepted](evidencias/longest-common-subsequence-accepted.jpeg) |
-| 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | `Greedy/non_overlapping_intervals.py` | _pendiente_ |
+| 4 | [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) | Greedy | [`greedy/non_overlapping_intervals.py`](greedy/non_overlapping_intervals.py) | _pendiente_ |
 | 5 | [39. Combination Sum](https://leetcode.com/problems/combination-sum/) | Backtracking | `Backtracking/combination_sum.py` | _pendiente_ |
 
 ---
@@ -261,3 +262,82 @@ taller de menor largo. Se dejó la tabla completa a propósito: el estado del en
 
 <!-- Evidencia opcional del detalle de runtime/memoria -->
 <!-- ![Runtime y memoria - 1143. Longest Common Subsequence](evidencias/longest-common-subsequence-runtime.jpeg) -->
+
+---
+
+## 4. 435. Non-overlapping Intervals
+
+**Problema:** [435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/) · Medium
+**Familia:** greedy (selección de actividades)
+**Código:** [`greedy/non_overlapping_intervals.py`](greedy/non_overlapping_intervals.py)
+
+### Idea en dos frases
+
+Es la **selección de actividades de la guía, contada al revés**: maximizar cuántos intervalos caben
+sin solaparse es equivalente a minimizar cuántos se borran (`n − los que quedan`). El criterio greedy
+es: **ordenar por extremo final y, en cada paso, quedarse con el primer intervalo que no pisa al
+último que se aceptó** — es decir, entre los que todavía caben, elegir **el que termina antes**.
+
+### El criterio greedy, paso a paso
+
+1. **Candidatos:** los `n` intervalos, ordenados de menor a mayor `end`
+   (`intervals.sort(key=lambda intervalo: intervalo[1])`).
+2. **Estado:** `fin_ultimo` = el `end` del último intervalo que se aceptó, y `quedan` = cuántos se
+   han aceptado hasta ahora. El primer intervalo ordenado siempre se acepta: `quedan = 1`.
+3. **Decisión local (el criterio):** se recorre el resto en orden y se acepta el intervalo
+   `[inicio, fin]` **si y solo si `inicio >= fin_ultimo`**. Si `inicio < fin_ultimo`, se solapa con el
+   último aceptado y **se cuenta como borrado** (no se acepta). Al aceptar, `fin_ultimo` pasa a ser
+   `fin`.
+4. **Respuesta:** `n - quedan`, es decir, los que no se eligieron.
+
+El detalle del `>=` es el que hace el enunciado: dos intervalos **que se tocan** (uno arranca
+justo cuando el otro termina, como `[1,2]` y `[2,3]`) **no** se solapan y LeetCode los admite
+juntos. Por eso la condición de rechazo es `inicio < fin_ultimo` (estricta), no `<=`.
+
+### Por qué el greedy es óptimo (intercambio)
+
+Sea `G` el intervalo con el `end` más pequeño de todos (el primero de la lista ordenada). Sea `Ó`
+una solución óptima cualquiera, y sea `I` su primer intervalo.
+
+- `G.end ≤ I.end` porque `G` es el que termina antes.
+- Reemplazar `I` por `G` en `Ó`: el resto de los intervalos de `Ó` arrancan en `≥ I.end`, y como
+  `G.end ≤ I.end`, todos ellos siguen arrancando **después** de `G`. No se pierde ninguno y no se
+  rompe la no-superposición: además `G` no se solapa con nada anterior porque no hay nada anterior.
+- El resultado sigue siendo una solución válida **con la misma cantidad de intervalos**.
+
+O sea: **existe** una solución óptima que empieza con `G`. Repetir el argumento sobre lo que
+queda (los intervalos que arrancan después de `G.end`) es **inducción** sobre el número de
+intervalos, y prueba que la estrategia greedy alcanza el máximo. Como maximize `quedan` es
+equivalente a minimize `n − quedan`, el greedy también es óptimo para lo que pregunta el
+ejercicio.
+
+**Contraste con el criterio equivocado:** si en vez de "termina antes" se usara "empieza antes",
+en `[[1,100], [2,3], [4,5], [6,7]]` se tomaría `[1,100]` y se **descartarían** los otros tres
+(respuesta 3). Eligiendo por `end` se aceptan `[2,3]`, `[4,5]`, `[6,7]` y solo se borra `[1,100]`
+(respuesta 1, que es el óptimo). El criterio local importa.
+
+### Complejidad
+
+Con `n = intervals.length`:
+
+- **Tiempo: Θ(n log n).** El término dominante es el **ordenamiento** por `end`; el recorrido
+  greedy es una sola pasada lineal, Θ(n). El enunciado exige que el greedy quede en O(n log n) y no
+  en el DP O(n²) sobre intervalos ordenados (que también sería correcto, pero no es lo evaluado).
+- **Espacio: O(n) extra en Python, O(1) del algoritmo en sí.** El greedy solo usa dos variables
+  (`quedan` y `fin_ultimo`) más el índice del `for`: Θ(1). Lo que ocupa O(n) es el arreglo temporal
+  que reserva `list.sort` de Python (Timsort mezcla bloques y necesita ese buffer), aunque la
+  lista `intervals` se reordena **in-place**. La referencia O(1) extra es para un ordenamiento
+  in-place tipo `std::sort` de C++; en Python el costo honesto es O(n). No se usa ninguna tabla
+  hash ni matriz de DP.
+
+Sobre el `sort` de la librería: aquí **el algoritmo que se evalúa es el greedy**, no el
+ordenamiento — el enunciado mismo pide "ordenar por `end`" y analiza el costo del sort. En el
+ejercicio 1, en cambio, el ordenamiento **era** el ejercicio, y por eso ahí el merge sort está
+escrito a mano.
+
+### Evidencia de Accepted
+
+![Accepted - 435. Non-overlapping Intervals](evidencias/non-overlapping-intervals-accepted.jpeg)
+
+<!-- Evidencia opcional del detalle de runtime/memoria -->
+<!-- ![Runtime y memoria - 435. Non-overlapping Intervals](evidencias/non-overlapping-intervals-runtime.jpeg) -->
