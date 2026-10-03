@@ -91,8 +91,6 @@ Con `n = intervals.length` y `k = número de intervalos fusionados` (`k ≤ n`):
 
 ![Accepted - 56. Merge Intervals](evidencias/merge-intervals-accepted.jpeg)
 
-<!-- Evidencia opcional del detalle de runtime/memoria -->
-<!-- ![Runtime y memoria - 56. Merge Intervals](evidencias/merge-intervals-runtime.jpeg) -->
 
 ---
 
@@ -165,8 +163,6 @@ mantiene en el orden de la pila y no en Θ(mn) adicionales.
 
 ![Accepted - 200. Number of Islands](evidencias/number-of-islands-accepted.jpeg)
 
-<!-- Evidencia opcional del detalle de runtime/memoria -->
-<!-- ![Runtime y memoria - 200. Number of Islands](evidencias/number-of-islands-runtime.jpeg) -->
 
 ---
 
@@ -261,8 +257,6 @@ taller de menor largo. Se dejó la tabla completa a propósito: el estado del en
 
 ![Accepted - 1143. Longest Common Subsequence](evidencias/longest-common-subsequence-accepted.jpeg)
 
-<!-- Evidencia opcional del detalle de runtime/memoria -->
-<!-- ![Runtime y memoria - 1143. Longest Common Subsequence](evidencias/longest-common-subsequence-runtime.jpeg) -->
 
 ---
 
@@ -340,8 +334,6 @@ escrito a mano.
 
 ![Accepted - 435. Non-overlapping Intervals](evidencias/non-overlapping-intervals-accepted.jpeg)
 
-<!-- Evidencia opcional del detalle de runtime/memoria -->
-<!-- ![Runtime y memoria - 435. Non-overlapping Intervals](evidencias/non-overlapping-intervals-runtime.jpeg) -->
 
 ---
 
@@ -416,6 +408,3 @@ algoritmo de este ejercicio.
 ### Evidencia de Accepted
 
 ![Accepted - 39. Combination Sum](evidencias/combination-sum-accepted.jpeg)
-
-<!-- Evidencia opcional del detalle de runtime/memoria -->
-<!-- ![Runtime y memoria - 39. Combination Sum](evidencias/combination-sum-runtime.jpeg) -->
